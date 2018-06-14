@@ -1,0 +1,120 @@
+ <head>
+    	<body>
+    <a href="add.php">Add</a>
+    <table border="1">
+    	<thead>
+    		<th></th>
+    		<th>mobile</th>
+    		<th>laptop</th>
+    		<th>i_pod</th>
+    		<th>LED</th>
+    	</thead>
+    	<tbody>
+    		<?php
+    			//fetch data from json
+    			$data = file_get_contents('members.json');
+    			//decode into php array
+    			$data = json_decode($data);
+     
+    			$index = 0;
+    			foreach($data as $row){
+    				echo "
+    					<tr>
+    						<td>".$row->mobile"</td>
+    						<td>".$row->laptop"</td>
+    						<td>".$row->I_Pad"</td>
+    						<td>".$row->LED"</td>
+    						<td>
+    							<a href='edit.php?index=".$index."'>Edit</a>
+    							<a href='delete.php?index=".$index."'>Delete</a>
+    						</td>
+    					</tr>
+    				";
+     
+    				$index++;
+    			}
+    		?>
+        <form method="POST">
+	<a href="index.php">Back</a>
+	<p>
+		<label for="id">ID</label>
+		<input type="text" id="id" name="id">
+	</p>
+	<p>
+		<label for="mobile">Firstname</label>
+		<input type="text" id="1" name="mobile">
+	</p>
+	<p>
+		<label for="laptop">Laptop</label>
+		<input type="text" id="1" name="laptop">
+	</p>
+	<p>
+		<label for="I_pad">I_Pad</label>
+		<input type="text" id="3" name="I_pad">
+	</p>
+<p>
+		<label for="LED">I_Pad</label>
+		<input type="text" id="4" name="LED">
+	</p>
+
+	<input type="submit" name="save" value="Save">
+</form>
+ 
+<?php
+	if(isset($_POST['save'])){
+		//open the json file
+		$data = file_get_contents('members.json');
+		$data = json_decode($data);
+ 
+		//data in out POST
+		$input = array(
+			'id' => $_POST['id'],
+			'mobile' => $_POST['mobile'],
+			'laptop' => $_POST['laptop'],
+			'I_Pad' => $_POST['I_pad'],
+			'LED' => $_POST['LED']
+		);
+ private function _getProductsList($Item)
+    {
+        $Items = $Items->getAllItems();
+        $Attributes = array();
+        $count_Items = count($Items);
+        for($i = 0; $i < $count_Items; $i++) {
+            $Attributes[$i] = array(
+                'name'=>
+                'price'=>number_format($Items[$i]['price'],0)
+                'lot_no'=>number_format($Items[$i]['lot_no'],0)
+                'sr.no'=>number_format($Items[$i]['sr_no'],0)
+            );
+        }
+
+        return $product;
+    }
+		//append the input to our array
+		$data[] = $input;
+		//encode back to json
+		$data = json_encode($data, JSON_PRETTY_PRINT);
+		file_put_contents('members.json', $data);
+ 
+		header('location: index.php');
+	}
+?>
+	//get the index
+	$index = $_GET['index'];
+ 
+	//fetch data from json
+	$data = file_get_contents('members.json');
+	$data = json_decode($data);
+ 
+	//delete the row with the index
+	unset($data[$index]);
+ 
+	//encode back to json
+	$data = json_encode($data, JSON_PRETTY_PRINT);
+	file_put_contents('members.json', $data);
+ 
+	header('location: index.php');
+    	</tbody>
+    </table>
+    </body>
+    </html>
