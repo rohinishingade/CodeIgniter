@@ -1,0 +1,44 @@
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    	<body>
+    <a href="add.php">Add</a>
+    <table border="1">
+    	<thead>
+    		<th></th>
+    		<th>mobile</th>
+    		<th>laptop</th>
+    		<th>i_pod</th>
+    		<th>LED</th>
+    	</thead>
+    	<tbody>
+    		<?php
+    			//fetch data from json
+    			$data = file_get_contents('members.json');
+    			//decode into php array
+    			$data = json_decode($data);
+     
+    			$index = 0;
+    			foreach($data as $row){
+    				echo "
+    					<tr>
+    						<td>".$row->mobile"</td>
+    						<td>".$row->laptop"</td>
+    						<td>".$row->I_Pad"</td>
+    						<td>".$row->LED"</td>
+    						<td>
+    							<a href='edit.php?index=".$index."'>Edit</a>
+    							<a href='delete.php?index=".$index."'>Delete</a>
+    						</td>
+    					</tr>
+    				";
+     
+    				$index++;
+    			}
+    		?>
+    	</tbody>
+    </table>
+    </body>
+    </html>
